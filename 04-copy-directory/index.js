@@ -20,16 +20,6 @@ async function copyDir(source, destination) {
       }
     }
 
-    const destinationFiles = await fs.readdir(destination);
-    for (const destFile of destinationFiles) {
-      const sourceFile = path.join(source, destFile);
-
-      if (!files.includes(destFile) && !(await fs.stat(sourceFile)).isDirectory()) {
-        const destFilePath = path.join(destination, destFile);
-        await fs.unlink(destFilePath);
-      }
-    }
-
     console.log('Success!');
   } catch (error) {
     console.error('Error!', error);
