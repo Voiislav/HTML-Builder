@@ -2,10 +2,12 @@ import fs from 'fs/promises';
 import path from 'path';
 
 async function copyDir(source, destination) {
+  let files;
+
   try {
     await fs.mkdir(destination, { recursive: true });
 
-    const files = await fs.readdir(source);
+    files = await fs.readdir(source);
 
     for (const file of files) {
       const sourcePath = path.join(source, file);
@@ -23,6 +25,29 @@ async function copyDir(source, destination) {
     console.log('Success!');
   } catch (error) {
     console.error('Error!', error);
+  }
+
+  try {
+    const destinationFiles = await fs.readdir(destination);
+
+    for (const destFile of destinationFiles) {
+      const sourceFile = path.join(source, destFile);
+
+      if (!files.includes(destFile)) {
+        const destFilePath = path.join(destination, destFile);
+
+        try {
+          const sourceFileStats = await fs.stat(sourceFile);
+          if (!sourceFileStats.isDirectory()) {
+            await fs.unlink(destFilePath);
+          }
+        } catch (error) {
+          await fs.unlink(destFilePath);
+        }
+      }
+    }
+  } catch (error) {
+    console.error('Error cleaning destination:', error);
   }
 }
 
