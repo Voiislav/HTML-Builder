@@ -55,3 +55,5 @@ const sourceFolder = './04-copy-directory/files';
 const destinationFolder = './04-copy-directory/files-copy';
 
 copyDir(sourceFolder, destinationFolder);
+
+export default copyDir;
