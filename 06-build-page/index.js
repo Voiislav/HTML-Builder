@@ -19,7 +19,7 @@ async function mergeStylesAsync(stylesFolderPath, stylesDistPath) {
 
 async function buildPage() {
   try {
-    const distDir = path.join(path.dirname(new URL(import.meta.url).pathname), 'project-dist');
+    const distDir = path.join('./06-build-page', 'project-dist');
     await fs.mkdir(distDir, { recursive: true });
 
     const scriptDir = path.dirname(new URL(import.meta.url).pathname);
