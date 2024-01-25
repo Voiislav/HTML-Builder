@@ -22,7 +22,8 @@ async function buildPage() {
     const distDir = path.join('./06-build-page', 'project-dist');
     await fs.mkdir(distDir, { recursive: true });
 
-    const scriptDir = path.dirname(new URL(import.meta.url).pathname);
+    const scriptDirRelative = '06-build-page';
+    const scriptDir = path.resolve(process.cwd(), scriptDirRelative);
     const templatePath = path.resolve(scriptDir, 'template.html');
     const templateContent = await fs.readFile(templatePath, 'utf-8');
 
