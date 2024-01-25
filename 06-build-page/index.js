@@ -53,7 +53,7 @@ async function buildPage() {
 
     if (assetsExist) {
       const copyDirectoryScriptPath = path.join(scriptDir, '..', '04-copy-directory', 'index.js');
-      const { default: copyDirectory } = await import(copyDirectoryScriptPath);
+      const { default: copyDirectory } = await import(`file://${copyDirectoryScriptPath}`);
       await copyDirectory(assetsDirRelative, path.join(distDir, 'assets'));
       console.log('Assets successfully copied');
     } else {
