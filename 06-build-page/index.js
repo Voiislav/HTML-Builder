@@ -23,7 +23,7 @@ async function buildPage() {
     await fs.mkdir(distDir, { recursive: true });
 
     const scriptDir = path.dirname(new URL(import.meta.url).pathname);
-    const templatePath = path.join(scriptDir, 'template.html');
+    const templatePath = path.resolve(scriptDir, 'template.html');
     const templateContent = await fs.readFile(templatePath, 'utf-8');
 
     const tags = templateContent.match(/\{\{(.+?)\}\}/g);
